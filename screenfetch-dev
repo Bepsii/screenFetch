@@ -1598,12 +1598,12 @@ detectmem () {
 		phys_mem=$(sysctl -n hw.physmem)
 		size_mem=$phys_mem
 		size_chip=1
-		guess_chip=`echo "$size_mem / 8 - 1" | bc`
+		guess_chip=$(echo "$size_mem / 8 - 1" | bc)
 		while [ $guess_chip != 0 ]; do
-			guess_chip=`echo "$guess_chip / 2" | bc`
-			size_chip=`echo "$size_chip * 2" | bc`
+			guess_chip=$(echo "$guess_chip / 2" | bc)
+			size_chip=$(echo "$size_chip * 2" | bc)
 		done
-		round_mem=`echo "( $size_mem / $size_chip + 1 ) * $size_chip " | bc`
+		round_mem=$(echo "( $size_mem / $size_chip + 1 ) * $size_chip " | bc)
 		totalmem=$(($round_mem / 1024^2 ))
 		pagesize=$(sysctl -n hw.pagesize)
 		inactive_count=$(sysctl -n vm.stats.vm.v_inactive_count)
